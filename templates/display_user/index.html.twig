@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Developpeur index{% endblock %}
+
+{% block body %}
+<h1>Community</h1>
+<div class="container">
+  <div class="row">
+    {% for user in users %}
+      <div class="col-md-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="row mb-3">
+              <div class="col-6">
+                <h4>Email</h4>
+                <p>{{ user.email }}</p>
+              </div>
+              <div class="col-6">
+                <h4>Photo</h4>
+                <img src="{{ asset('uploads/images/' ~ user.photo) }}" alt="..." style="width: 100% ; border-radius: 50%;">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <h4>Role</h4>
+                <p>{{ user.roles ? user.roles|json_encode : '' }}</p>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <!-- Ajoutez ici d'autres éléments si nécessaire -->
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
