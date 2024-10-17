@@ -58,7 +58,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" href=""
+              <a class="dropdown-item" href="{{path('app_user_index')}}"
                 >Customers</a
               >
             </li>
@@ -68,8 +68,30 @@
         <li class="nav-link">
           <a class="dropdown-item" href="{{path('app_login')}}">Login</a>
         </li>
-       
-		<li class="nav-item"><a class="nav-link" href="">Register</a></li>
+       {# ********************************************************* #}
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Register
+          </a>
+          {# role de l'administrateur general #}
+          <ul class="dropdown-menu">
+		<li class="nav-item"><a class="nav-link" href="{{path('app_register_customer')}}">Customer</a></li>
+		<li class="nav-item"><a class="nav-link" href="{{path('app_register_developper')}}">Developper</a></li>
+
+
+          </ul>
+        </li>
+       {# ********************************************************* #}
+
+
+
 		{% else %}
         <li class="nav-link">
           <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>

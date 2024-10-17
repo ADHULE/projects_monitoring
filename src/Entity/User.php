@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\InheritanceType('JOINED')] //spercification de type de strategie adoptee
+#[ORM\DiscriminatorColumn(name: 'discimination', type: 'string')] //ajouter une table suplementaire en l'entity user
+#[ORM\DiscriminatorMap(['clien' => Customer::class, 'developpeur' => Developper::class])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -41,6 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $phone_number = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
 
     public function getId(): ?int
     {
@@ -149,6 +158,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoto(?string $photo): static
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?int
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(?int $phone_number): static
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
 
         return $this;
     }

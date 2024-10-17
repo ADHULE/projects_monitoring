@@ -17,6 +17,11 @@
         {% block nav %}
           {% include 'layouts/_nav.html.twig' %}
         {% endblock %}
-        {% block body %}{% endblock %}
+          <!-- Inclusion de jQuery -->
+    <script src="{{ asset('js/jquery-3.7.1.js') }}"></script>
+    <!-- Inclusion de ton script personnalisé -->
+    {# <script src="{{ asset('js/custom.js') }}"></script> #}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>

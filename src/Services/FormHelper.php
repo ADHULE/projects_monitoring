@@ -17,9 +17,9 @@ class FormHelper
                 new File([
                     'maxSize' => '1024k',
                     'mimeTypes' => [
-                        'photo/jpg',
-                        'photo/jpeg',
-                        'photo/png'
+                        'image/jpg',
+                        'image/jpeg',
+                        'image/png'
                     ],
                     'maxSizeMessage' => "l'image ne doit pas depasser 1024ko",
                     'mimeTypesMessage' => "Votre photo doit être du type JPEG ou PNG"

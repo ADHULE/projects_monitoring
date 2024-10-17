@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Developper;
+
 use App\Services\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class RegistrationDevFormType extends AbstractType
 {
      // construire le service qui gere l'ajout de l'image
      private $formHelper;
@@ -27,6 +28,9 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('name')
             ->add('lastname')
+            ->add('phone_number')
+            ->add('address')
+            ->add('skills')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -60,7 +64,7 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Developper::class,
         ]);
     }
 }
