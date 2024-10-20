@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Developper;
 use App\Form\DevelopperType;
-use App\Form\RegistrationFormType;
 use App\Repository\DevelopperRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +26,6 @@ class DevelopperController extends AbstractController
             'developper' => $developper,
         ]);
     }
-
     #[Route('/{id}/edit', name: 'app_developper_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Developper $developper, EntityManagerInterface $entityManager): Response
     {

@@ -58,7 +58,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" href="{{path('app_user_index')}}"
+              <a class="dropdown-item" href=""
                 >Customers</a
               >
             </li>
@@ -80,18 +80,12 @@
           >
             Register
           </a>
-          {# role de l'administrateur general #}
+         
           <ul class="dropdown-menu">
 		<li class="nav-item"><a class="nav-link" href="{{path('app_register_customer')}}">Customer</a></li>
 		<li class="nav-item"><a class="nav-link" href="{{path('app_register_developper')}}">Developper</a></li>
-
-
           </ul>
         </li>
-       {# ********************************************************* #}
-
-
-
 		{% else %}
         <li class="nav-link">
           <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
@@ -99,10 +93,18 @@
         <li class="nav-link">
           <div class="mb-3">
 			{# ajout d'une image si l'utilisateur se connecter #}
-      {% if app.user.photo %}
-       <img src="{{ asset('uploads/images/' ~ app.user.photo) }}"  style="width: 40px; border-radius: 50%;">
-      {% endif %}
+   {% if app.user %}
+    <a class="dropdown-item" href="{{ path('app_user_profile', {'id': app.user.id}) }}">
+        {% if app.user.photo %}
+            <img src="{{ asset('uploads/images/' ~ app.user.photo) }}" style="width: 20px; border-radius: 50%;">
+        {% endif %}
+        {{ app.user.name }}
+    </a>
+{% endif %}
+
 			<div>
+      <li class="nav-link">
+      </li>
           {% endif %}
         </li>
       </ul>

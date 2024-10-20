@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Utilisateur</h1>
+    <div class="card border-info">
+        <div class="card-header bg-info text-white">Informations personnelles</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <h3>Id</h3>
+                        <p>{{ user.id }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Email</h3>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Rôle</h3>
+                        <p>{{ user.roles ? user.roles|json_encode : '' }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Name</h3>
+                        <p>{{ user.name }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Lastname</h3>
+                        <p>{{ user.lastname }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Phone Number</h3>
+                        <p>{{ user.phoneNumber }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Address</h3>
+                        <p>{{ user.address }}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <h3 style="text-align: center;">Photo</h3>
+                        {% if user.photo %}
+                            <img src="{{ asset('uploads/images/' ~ user.photo) }}" class="img-fluid rounded-circle mb-2" style="width: 400px; height: 400px;" alt="Photo de {{ user.name }}">
+                        {% else %}
+                            <p>Aucune photo disponible</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a class="btn btn-outline-primary" href="{{ path('app_home') }}">Back to profile</a>
+                <a class="btn btn-primary" href="{{ path('app_user_edit', { id: user.id }) }}">edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

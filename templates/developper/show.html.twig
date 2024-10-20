@@ -1,54 +1,60 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Developper{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Developpeur {% endblock %} {%
+    block body %}
     <h1>Developper</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ developper.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ developper.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ developper.roles ? developper.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ developper.password }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ developper.name }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ developper.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ developper.photo }}</td>
-            </tr>
-            <tr>
-                <th>Hire_date</th>
-                <td>{{ developper.hireDate ? developper.hireDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Skills</th>
-                <td>{{ developper.skills }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_developper_index') }}">back to list</a>
-
-    <a href="{{ path('app_developper_edit', {'id': developper.id}) }}">edit</a>
-
-    {{ include('developper/_delete_form.html.twig') }}
-{% endblock %}
+    
+    <div class="container show">
+      <div class="row">
+            <div class="col">
+              <p>
+                <h3> Name</h3>
+                {{ developper.name}}
+              </p>
+              <p>
+                <h3> Email</h3>
+                {{ developper.email }}
+              </p>
+              <p><h3> Phone Number</h3>
+               {# {{ developper.phone_number }} #}
+              </p>
+              <p>
+               <h3> Skills</h3>
+               {{ developper.skills }}
+              </p>
+              <p>
+               <h3> Roles</h3>
+                {{ developper.roles ? developper.roles|json_encode : '' }}
+               
+              </p>
+              <p>
+               <h3> Hire Date</h3>
+                 {{ developper.hireDate ? developper.hireDate|date('Y-m-d') : '' }}
+              </p>
+          </div>
+          <div class="col">
+            <img
+              style="width: 400px; border-radius: 50%;"
+              src="{{ asset('uploads/images/'~ developper.photo) }}"
+              alt="..."/>
+          </div>
+        </div>
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col"> 
+                    <a class="btn btn-outline-info" href="{{ path('app_home') }}"
+                      >back to list</a
+                    >
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-info"href="{{ path('app_developper_edit', { id: developper.id }) }}">edit</a>
+                </div>
+                <div class="col">
+    
+                    {{ include("developper/_delete_form.html.twig") }}
+    
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    {% endblock %}
+    
