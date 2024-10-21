@@ -18,10 +18,11 @@
           {% include 'layouts/_nav.html.twig' %}
         {% endblock %}
           <!-- Inclusion de jQuery -->
-    <script src="{{ asset('js/jquery-3.7.1.js') }}"></script>
     <!-- Inclusion de ton script personnalisé -->
     {# <script src="{{ asset('js/custom.js') }}"></script> #}
         {% block body %}
         {% endblock %}
+    {# <script src="{{ asset('js/jquery-3.7.1.js') }}"></script> #}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRsD7NnE2wOq1O6GMH35q/eX6Iz5ZrUmh3vl0z/J5" crossorigin="anonymous"></script>
     </body>
 </html>

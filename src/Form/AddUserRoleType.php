@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Developper;
 use App\Services\FormHelper;
-use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType; // Corrigé: Doctrine\DBAL\Types\DateType à Symfony\Component\Form\Extension\Core\Type\DateType
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,9 +35,8 @@ class AddUserRoleType extends AbstractType
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
                     'Développeur junior' => 'ROLE_DEV_JUNIOR',
-                    'Développeur intermédiaire' => 'ROLE_DEV_INTERMEDIAIRE',
+                    'Développeur intermédiaire' => 'ROLE_DE_MEDUIM',
                     'Développeur senior' => 'ROLE_DEV_SENIOR',
-
                 ],
                 'multiple' => true,
                 'expanded' => true,
@@ -48,10 +47,11 @@ class AddUserRoleType extends AbstractType
                 ],
             ]);
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Developper::class,
         ]);
     }
 }

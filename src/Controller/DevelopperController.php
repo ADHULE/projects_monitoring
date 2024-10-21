@@ -19,13 +19,7 @@ class DevelopperController extends AbstractController
             'developpers' => $developperRepository->findAll(),
         ]);
     }
-    #[Route('/{id}', name: 'app_developper_show', methods: ['GET'])]
-    public function show(Developper $developper): Response
-    {
-        return $this->render('developper/show.html.twig', [
-            'developper' => $developper,
-        ]);
-    }
+
     #[Route('/{id}/edit', name: 'app_developper_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Developper $developper, EntityManagerInterface $entityManager): Response
     {

@@ -3,45 +3,41 @@
 {% block title %}Customer index{% endblock %}
 
 {% block body %}
-    <h1>Customer index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Photo</th>
-                <th>Address</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Customer index</h1>
+    <div class="row">
         {% for customer in customers %}
-            <tr>
-                <td>{{ customer.id }}</td>
-                <td>{{ customer.email }}</td>
-                <td>{{ customer.roles ? customer.roles|json_encode : '' }}</td>
-                <td>{{ customer.password }}</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.lastname }}</td>
-                <td>{{ customer.photo }}</td>
-                <td>{{ customer.address }}</td>
-                <td>
-                    <a href="{{ path('app_customer_show', {'id': customer.id}) }}">show</a>
-                    <a href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ customer.name }} {{ customer.lastname }}</h5>
+                        <p class="card-text">
+                            <strong>Email:</strong> {{ customer.email }}<br>
+                            <strong>Roles:</strong> {{ customer.roles ? customer.roles|json_encode : '' }}<br>
+                            <strong>Address:</strong> {{ customer.address }}<br>
+                            <strong>Photo:</strong> 
+                            {% if customer.photo %}
+                                <img src="{{ asset('uploads/images/' ~ customer.photo) }}" class="img-fluid rounded" alt="Photo of {{ customer.name }}" style="width: 300px;">
+                            {% else %}
+                                No photo available
+                            {% endif %}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              
+                                <a href="{{ path('app_customer_edit', {'id': customer.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No records found
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_customer_new') }}">Create new</a>
+    </div>
+</div>
 {% endblock %}

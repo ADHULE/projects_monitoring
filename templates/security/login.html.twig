@@ -1,35 +1,124 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Page d'authentification</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .login-container {
 
-{% block title %}Log in!{% endblock %}
+                height: 80vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 10%;
+                left: 20%;
+                bottom: 20%;
+                right: 20%;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                padding-left: 5px;
+            }
+            .login-form {
+                width: 50%;
+                padding: 2rem;
+            }
+            .login-image {
+                background: url('/images/illustration-concept-ligne-securite-donnees-cyber-securite-internet-confidentialite-informations-protection_1150-37328.jpg') no-repeat center center;
+                background-size: cover;
+                width: 50%;
+                height: 50vh;
+                margin-left: 10px;
+                border-radius: 10px;
+            }
+            .font-weight-normal {
+                text-align: center;
+            }
+            @media(max-width:750px) {
+                .login-container {
 
-{% block body %}
-<div class="container mt-5">
-    <h1 class="text-center mb-3">Please sign in</h1>
+                    min-height: 100vh;
+                    display: block;
+                    align-items: center;
+                    justify-content: center;
 
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
+                }
+                .login-form {
+                    width: 20%;
+                    padding: 2rem;
+                }
+                .login-image {
+                    background: url('/images/illustration-concept-ligne-securite-donnees-cyber-securite-internet-confidentialite-informations-protection_1150-37328.jpg') no-repeat center center;
+                    background-size: cover;
+                    width: 20%;
+                    height: 100vh;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-container ">
+            <div class="login-image"></div>
+            <div class="login-form">
+                <form class="forme" method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">Votre email soit mot de passe incorrecte</div>
+                    {% endif %}
 
-    <form method="post">
-        <div class="row align-items-center border rounded p-3">
-            <div class="col-md-6 text-center loginBackGround">
-                <img src="{{ asset('images/login.png') }}" alt="Login Image" class="img-fluid" style="max-width: 100%; height: auto;">
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="inputEmail">Email</label>
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as
+                            {{ app.user.userIdentifier }},
+                            <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+
+                    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+                    <label for="inputEmail">Adresse E-mail</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign in</button>
+                    <label for="inputPassword">Mot de passe</label>
+                    <div class="input-group">
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fa fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me">
+                            Souviens de moi
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Se connecter
+                    </button>
+
+                </form>
+
             </div>
-        </div>
-    </form>
-</div>
-{% endblock %}
+            <script>
+                const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#inputPassword');
+const toggleIcon = document.querySelector('#toggleIcon');
+
+togglePassword.addEventListener('click', function (e) { // toggle the type attribute
+const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+password.setAttribute('type', type);
+
+// toggle the eye slash icon
+toggleIcon.classList.toggle('fa-eye-slash');
+});
+            </script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </body>
+    </body>
