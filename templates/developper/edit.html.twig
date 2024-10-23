@@ -7,6 +7,6 @@
 
     {{ include('developper/_form.html.twig', {'button_label': 'Update'}) }}
     <a href="{{ path('app_developper_index') }}">back to list</a>
-    <a href="{{ path('app_developpeur_edit_role', {'id': developper.id}) }}" class="btn btn-secondary mt-3">Add Role</a>
+    <a href="{{ path('app_user_edit_role', {'id': developper.id}) }}" class="btn btn-secondary mt-3">Add Role</a>
 
 {% endblock %}

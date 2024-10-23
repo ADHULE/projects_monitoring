@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Queries{% endblock %}
+
+{% block body %}
+    <h1>Queries</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ query.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ query.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ query.description }}</td>
+            </tr>
+            <tr>
+                <th>End_date</th>
+                <td>{{ query.endDate ? query.endDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Objective</th>
+                <td>{{ query.objective }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_queries_index') }}">back to list</a>
+
+    <a href="{{ path('app_queries_edit', {'id': query.id}) }}">edit</a>
+
+    {{ include('queries/_delete_form.html.twig') }}
+{% endblock %}

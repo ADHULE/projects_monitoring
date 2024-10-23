@@ -13,7 +13,6 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
-     
       .login-container {
         display: flex;
         align-items: center;
@@ -102,9 +101,18 @@
               <input type="checkbox" name="_remember_me" /> Souviens-toi de moi
             </label>
           </div>
-          <button class="btn btn-primary btn-block" type="submit">
-            Se connecter
-          </button>
+          <div class="row">
+            <div class="col">
+              <a href="{{ path('app_home') }}" class="btn btn-outline-info"
+                >Back to home</a
+              >
+            </div>
+            <div class="col">
+              <button class="btn btn-primary btn-block" type="submit">
+                Se connecter
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

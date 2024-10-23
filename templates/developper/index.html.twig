@@ -14,7 +14,7 @@
                         <p class="card-text">
                             <strong>Email:</strong> {{ developper.email }}<br>
                             <strong>Roles:</strong> {{ developper.roles ? developper.roles|json_encode : '' }}<br>
-                            <strong>Hire Date:</strong> {{ developper.hireDate ? developper.hireDate|date('Y-m-d') : '' }}<br>
+                            <strong>Hire Date:</strong> {{ developper.Date ? developper.Date|date('Y-m-d') : '' }}<br>
                             <strong>Skills:</strong> {{ developper.skills }}<br>
                             <strong>Photo:</strong> 
                             {% if developper.photo %}

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Developper;
+use App\Entity\User;
 use App\Services\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType; // Corrigé: Doctrine\DBAL\Types\DateType à Symfony\Component\Form\Extension\Core\Type\DateType
@@ -23,7 +23,7 @@ class AddUserRoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('hire_date', DateType::class, [
+            ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'constraints' => [
                     new NotBlank([
@@ -37,6 +37,8 @@ class AddUserRoleType extends AbstractType
                     'Développeur junior' => 'ROLE_DEV_JUNIOR',
                     'Développeur intermédiaire' => 'ROLE_DE_MEDUIM',
                     'Développeur senior' => 'ROLE_DEV_SENIOR',
+                    'Customer' => 'ROLE_CUSTOMER',
+                   
                 ],
                 'multiple' => true,
                 'expanded' => true,
@@ -51,7 +53,7 @@ class AddUserRoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Developper::class,
+            'data_class' => User::class,
         ]);
     }
 }

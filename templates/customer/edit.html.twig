@@ -8,6 +8,7 @@
     {{ include('customer/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_customer_index') }}">back to list</a>
+    <a href="{{ path('app_user_edit_role', {'id': customer.id}) }}" class="btn btn-secondary mt-3">Add Role</a>
 
     {{ include('customer/_delete_form.html.twig') }}
 {% endblock %}

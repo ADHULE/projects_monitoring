@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Queries index{% endblock %}
+
+{% block body %}
+    <h1>Queries index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>End_date</th>
+                <th>Objective</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for query in queries %}
+            <tr>
+                <td>{{ query.id }}</td>
+                <td>{{ query.title }}</td>
+                <td>{{ query.description }}</td>
+                <td>{{ query.endDate ? query.endDate|date('Y-m-d') : '' }}</td>
+                <td>{{ query.objective }}</td>
+                <td>
+                    <a href="{{ path('app_queries_show', {'id': query.id}) }}">show</a>
+                    <a href="{{ path('app_queries_edit', {'id': query.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_queries_new') }}">Create new</a>
+{% endblock %}

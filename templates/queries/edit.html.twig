@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Queries{% endblock %}
+
+{% block body %}
+    <h1>Edit Queries</h1>
+
+    {{ include('queries/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_queries_index') }}">back to list</a>
+
+    {{ include('queries/_delete_form.html.twig') }}
+{% endblock %}

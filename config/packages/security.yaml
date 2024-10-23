@@ -41,6 +41,7 @@ security:
         - { path: ^/dev_junior, roles: ROLE_DEV_JUNIOR }
         - { path: ^/dev_meduim, roles: ROLE_DEV_MEDIUM }
         - { path: ^/dev_senior, roles: ROLE_DEV_SENIOR }
+        - { path: ^/dev_customer, roles: ROLE_CUSTOMER }
 when@test:
     security:
         password_hashers:
