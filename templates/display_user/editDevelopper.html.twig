@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %} {% block title %}Register{% endblock %} {% block
+  body %}
+  <h1 class="text-center my-4">Register</h1>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10" style="background-color: rgba(0, 255, 255, 0.15)">
+        {{ form_start(form) }}
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              {{ form_label(form.name) }}
+              {{ form_widget(form.name, {'attr': {'class': 'form-control'
+  
+              }}) }}
+              {{ form_errors(form.name) }}
+            </div>
+  
+            <div class="form-group mb-3">
+              {{ form_label(form.lastname) }}
+              {{ form_widget(form.lastname, {'attr': {'class': 'form-control'
+              }}) }}
+              {{ form_errors(form.lastname) }}
+            </div>
+  
+            <div class="form-group mb-3">
+              {{ form_label(form.email) }}
+              {{ form_widget(form.email, {'attr': {'class': 'form-control'
+              }}) }}
+              {{ form_errors(form.email) }}
+            </div>
+             <div class="form-group mb-3">
+              {{ form_label(form.skills) }}
+              {{ form_widget(form.skills, {'attr': {'class': 'form-control'
+  
+              }}) }}
+              {{ form_errors(form.skills) }}
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group mb-3">
+              {{ form_label(form.photo) }}
+              {{ form_widget(form.photo, {'attr': {'class': 'form-control'
+  
+  
+              }}) }}
+              {{ form_errors(form.photo) }}
+            </div>
+            <div class="form-group mb-3">
+              {{ form_label(form.phoneNumber) }}
+              {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control'
+  
+  
+              }}) }}
+              {{ form_errors(form.phoneNumber) }}
+            </div>
+             <div class="form-group mb-3">
+              {{ form_label(form.plainPassword) }}
+              <div class="input-group">
+                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'type': 'password', 'id': 'passwordField'
+                }}) }}
+                           {{ form_errors(form.plainPassword) }}
+            </div>
+          
+            <div class="form-group mb-3">
+              {{ form_label(form.address) }}
+              {{ form_widget(form.address, {'attr': {'class': 'form-control'
+              }}) }}
+              {{ form_errors(form.address) }}
+            </div>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col">
+              <a
+                href="{{ path('app_user_profile', { id: user.id }) }}"
+                class="btn btn-outline-primary"
+              >
+                Back to profil</a
+              >
+            </div>
+            <div class="col">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </div>
+      
+  
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+  
+  {% endblock %}
+  

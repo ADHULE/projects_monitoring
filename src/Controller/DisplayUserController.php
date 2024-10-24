@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Customer;
+use App\Entity\Developper;
 use App\Entity\User;
-use App\Form\DisplayUserFormType;
+use App\Form\DisplayCustomerProfilFormType;
+use App\Form\DisplayDevelopperProfilFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,14 +27,24 @@ class DisplayUserController extends AbstractController
     #[Route('/{id}/profile', name: 'app_user_profile', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('display_user/show.html.twig', [
+        $template = $user instanceof Developper ? 'display_user/showDevelopperProfil.html.twig' : 'display_user/showCustomerProfil.html.twig';
+
+        return $this->render($template, [
             'user' => $user,
         ]);
     }
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function editUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(DisplayUserFormType::class, $user);
+        // Determine the user type and throw an exception if it's not valid
+        if (!$user instanceof Developper && !$user instanceof Customer) {
+            error_log('User ID: ' . $user->getId() . ' is not a Developper or Customer');
+            throw $this->createNotFoundException('L\'utilisateur n\'est pas un client ou un développeur');
+        }
+
+        // Create the appropriate form based on the user type
+        $formType = $user instanceof Developper ? DisplayDevelopperProfilFormType::class : DisplayCustomerProfilFormType::class;
+        $form = $this->createForm($formType, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,17 +69,16 @@ class DisplayUserController extends AbstractController
             }
             //************************************************************************************ */
 
-
             $entityManager->flush();
-
             return $this->redirectToRoute('app_user_profile', ['id' => $user->getId()]);
         }
 
-        return $this->render('display_user/edit.html.twig', [
+        // Determine the Twig template based on the user type
+        $template = $user instanceof Developper ? 'display_user/editDevelopper.html.twig' : 'display_user/editCustomer.html.twig';
+
+        return $this->render($template, [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
-
-    
 }

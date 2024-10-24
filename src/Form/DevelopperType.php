@@ -30,6 +30,7 @@ class DevelopperType extends AbstractType
             ->add('phone_number')
             ->add('address')
             ->add('skills')
+            ->add('date')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

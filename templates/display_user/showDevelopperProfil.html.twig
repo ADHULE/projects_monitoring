@@ -2,17 +2,13 @@
 {% block title %}User{% endblock %}
 {% block body %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Utilisateur</h1>
+    <h1 class="text-center mb-4">{{user.name}}</h1>
     <div class="card border-info">
-        <div class="card-header bg-info text-white">Informations personnelles</div>
+        <div class="card-header bg-info text-white text-center">Informations personnelles</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <div class="mb-3">
-                        <h3>Id</h3>
-                        <p>{{ user.id }}</p>
-                    </div>
-                    <div class="mb-3">
+                     <div class="mb-3">
                         <h3>Email</h3>
                         <p>{{ user.email }}</p>
                     </div>
@@ -35,6 +31,10 @@
                     <div class="mb-3">
                         <h3>Address</h3>
                         <p>{{ user.address }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h3>Skills</h3>
+                        <p>{{ user.skills }}</p>
                     </div>
                 </div>
                 <div class="col-6">

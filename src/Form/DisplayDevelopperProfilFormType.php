@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class DisplayUserFormType extends AbstractType
+class DisplayDevelopperProfilFormType extends AbstractType
 {
     private $formHelper;
 
@@ -27,24 +27,33 @@ class DisplayUserFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                
             ])
             ->add('name', TextType::class, [
                 'label' => 'Name',
+                
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Lastname',
+                
             ])
             ->add('phoneNumber', TextType::class, [
                 'label' => 'Phone Number',
+                
             ])
             ->add('address', TextType::class, [
                 'label' => 'Address',
+                
+            ])
+            ->add('skills', TextType::class, [
+                'label' => 'skills',
+                
             ])
             ->add('plainPassword', PasswordType::class, [
                 // Au lieu d'être défini directement sur l'objet,
                 // ce champ sera lu et encodé dans le contrôleur
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['class' => 'form-control', 'autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -67,5 +76,4 @@ class DisplayUserFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
-    }
-}
+    }}
