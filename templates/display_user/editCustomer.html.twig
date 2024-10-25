@@ -1,35 +1,51 @@
-{% extends 'base.html.twig' %} {% block title %}Register{% endblock %} {% block
-body %}
-<h1 class="text-center my-4">Register</h1>
-<div class="container">
-  <div class="row justify-content-center">
-     <div class="col-md-10" style="background-color: rgba(0, 255, 255, 0.15)">
-      {{ form_start(form) }}
-      <div class="row">
-        <div class="col">
-          <div class="form-group mb-3">
-            {{ form_label(form.name) }}
-            {{ form_widget(form.name, {'attr': {'class': 'form-control'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+{% include 'layouts/togglePassword.html.twig' %}
+</head>
+<body>
+  
+  <h1 class="text-center my-4">Register</h1>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10" style="background-color: rgba(0, 255, 255, 0.15)">
+        {{ form_start(form) }}
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              {{ form_label(form.name) }}
+              {{ form_widget(form.name, {'attr': {'class': 'form-control'
 
             }}) }}
             {{ form_errors(form.name) }}
           </div>
-
+          
           <div class="form-group mb-3">
             {{ form_label(form.lastname) }}
             {{ form_widget(form.lastname, {'attr': {'class': 'form-control'
-            }}) }}
-            {{ form_errors(form.lastname) }}
-          </div>
-
-          <div class="form-group mb-3">
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email, {'attr': {'class': 'form-control'
-            }}) }}
+          }}) }}
+          {{ form_errors(form.lastname) }}
+        </div>
+        
+        <div class="form-group mb-3">
+          {{ form_label(form.email) }}
+          {{ form_widget(form.email, {'attr': {'class': 'form-control'
+        }}) }}
             {{ form_errors(form.email) }}
           </div>
            <div class="form-group mb-3">
-            {{ form_label(form.entreprise) }}
+             {{ form_label(form.entreprise) }}
             {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'
 
             }}) }}
@@ -37,35 +53,46 @@ body %}
           </div>
         </div>
         <div class="col">
-          <div class="form-group mb-3">
+          <div class="form-group mb-3" style="border: 1px solid white;">
             {{ form_label(form.photo) }}
-            {{ form_widget(form.photo, {'attr': {'class': 'form-control'
-
-
-            }}) }}
-            {{ form_errors(form.photo) }}
-          </div>
-          <div class="form-group mb-3">
+            {{ form_widget(form.photo, {'attr': {'class': ''
+            
+            
+          }}) }}
+          {{ form_errors(form.photo) }}
+        </div>
+        <div class="form-group mb-3">
             {{ form_label(form.phoneNumber) }}
             {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control'
-
-
-            }}) }}
-            {{ form_errors(form.phoneNumber) }}
+            
+            
+          }}) }}
+          {{ form_errors(form.phoneNumber) }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form_label(form.plainPassword) }}
+          <div class="input-group">
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'type': 'password', 'id': 'passwordField'
+          }}) }}
+          <div class="input-group-append">
+            <span
+              class="input-group-text"
+              id="togglePassword"
+              style="cursor: pointer"
+            >
+              <i id="toggleIcon" class="fa fa-eye"></i>
+            </span>
           </div>
-           <div class="form-group mb-3">
-            {{ form_label(form.plainPassword) }}
-            <div class="input-group">
-              {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'type': 'password', 'id': 'passwordField'
-              }}) }}
-                         {{ form_errors(form.plainPassword) }}
-          </div>
+        </div>
+
+          {{ form_errors(form.plainPassword) }}
+        </div>
         
-          <div class="form-group mb-3">
-            {{ form_label(form.address) }}
-            {{ form_widget(form.address, {'attr': {'class': 'form-control'
-            }}) }}
-            {{ form_errors(form.address) }}
+        <div class="form-group mb-3">
+          {{ form_label(form.address) }}
+          {{ form_widget(form.address, {'attr': {'class': 'form-control'
+        }}) }}
+        {{ form_errors(form.address) }}
           </div>
         </div>
       </div>
@@ -75,18 +102,19 @@ body %}
               href="{{ path('app_user_profile', { id: user.id }) }}"
               class="btn btn-outline-primary"
             >
-              Back to profil</a
+            Back to profil</a
             >
           </div>
           <div class="col">
             <button type="submit" class="btn btn-primary">Register</button>
           </div>
         </div>
-    
-
-      {{ form_end(form) }}
+        
+        
+        {{ form_end(form) }}
+      </div>
     </div>
-  </div>
 </div>
+</body>
+</html>
 
-{% endblock %}

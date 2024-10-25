@@ -1,132 +1,138 @@
-{% extends 'base.html.twig' %} {% block title %}Register{% endblock %} {% block
-body %}
-<h1 class="text-center my-4">Register</h1>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6" style="background-color: rgba(233, 219, 235, 0.938)">
-      {{ form_start(registrationDevForm) }}
-      <div class="row">
-        <div class="col">
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.name) }}
-            {{ form_widget(registrationDevForm.name, {'attr': {'class': 'form-control'
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    {% include 'layouts/togglePassword.html.twig' %}
+  </head>
+  <body>
+    <h1 class="text-center my-4">Register</h1>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div
+          class="col-md-6"
+          style="background-color: rgba(233, 219, 235, 0.938)"
+        >
+          {{ form_start(registrationDevForm) }}
+          <div class="row">
+            <div class="col">
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.name) }}
+                {{ form_widget(registrationDevForm.name, {'attr': {'class': 'form-control'
 
-            }}) }}
-            {{ form_errors(registrationDevForm.name) }}
-          </div>
 
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.lastname) }}
-            {{ form_widget(registrationDevForm.lastname, {'attr': {'class': 'form-control'
+                }}) }}
+                {{ form_errors(registrationDevForm.name) }}
+              </div>
 
-            }}) }}
-            {{ form_errors(registrationDevForm.lastname) }}
-          </div>
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.email) }}
-            {{ form_widget(registrationDevForm.email, {'attr': {'class': 'form-control'
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.lastname) }}
+                {{ form_widget(registrationDevForm.lastname, {'attr': {'class': 'form-control'
 
-            }}) }}
-            {{ form_errors(registrationDevForm.email) }}
-          </div>
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.photo) }}
-            {{ form_widget(registrationDevForm.photo, {'attr': {'class': 'form-control'
+                }}) }}
+                {{ form_errors(registrationDevForm.lastname) }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.email) }}
+                {{ form_widget(registrationDevForm.email, {'attr': {'class': 'form-control'
 
-            }}) }}
-            {{ form_errors(registrationDevForm.photo) }}
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.address) }}
-            {{ form_widget(registrationDevForm.address, {'attr': {'class': 'form-control'
 
-            }}) }}
-            {{ form_errors(registrationDevForm.address) }}
-          </div>
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.phone_number) }}
-            {{ form_widget(registrationDevForm.phone_number, {'attr': {'class': 'form-control'
+                }}) }}
+                {{ form_errors(registrationDevForm.email) }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.photo) }}
+                {{ form_widget(registrationDevForm.photo, {'attr': {'class': ''
 
-            }}) }}
-            {{ form_errors(registrationDevForm.phone_number) }}
-          </div>
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.skills) }}
-            {{ form_widget(registrationDevForm.skills, {'attr': {'class': 'form-control'
-
-            }}) }}
-            {{ form_errors(registrationDevForm.skills) }}
-          </div>
-
-          <div class="form-group mb-3">
-            {{ form_label(registrationDevForm.plainPassword) }}
-            <div class="input-group">
-              {{ form_widget(registrationDevForm.plainPassword, {'attr': {'class': 'form-control', 'type': 'password', 'id': 'passwordField'
-
-              }}) }}
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <svg
-                    id="togglePassword"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-eye-slash"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"
-                    />
-                    <path
-                      d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"
-                    />
-                    <path
-                      d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"
-                    />
-                  </svg>
-                </div>
+                }}) }}
+                {{ form_errors(registrationDevForm.photo) }}
               </div>
             </div>
-            {{ form_errors(registrationDevForm.plainPassword) }}
+            <div class="col">
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.address) }}
+                {{ form_widget(registrationDevForm.address, {'attr': {'class': 'form-control'
+
+
+                }}) }}
+                {{ form_errors(registrationDevForm.address) }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.phone_number) }}
+                {{ form_widget(registrationDevForm.phone_number, {'attr': {'class': 'form-control'
+
+
+                }}) }}
+                {{ form_errors(registrationDevForm.phone_number) }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.skills) }}
+                {{ form_widget(registrationDevForm.skills, {'attr': {'class': 'form-control'
+
+
+                }}) }}
+                {{ form_errors(registrationDevForm.skills) }}
+              </div>
+
+              <div class="form-group mb-3">
+                {{ form_label(registrationDevForm.plainPassword) }}
+                <div class="input-group">
+                  {{ form_widget(registrationDevForm.plainPassword, {'attr': {'class': 'form-control', 'type': 'password', 'id': 'passwordField'
+
+                  }}) }}
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text"
+                      id="togglePassword"
+                      style="cursor: pointer"
+                    >
+                      <i id="toggleIcon" class="fa fa-eye"></i>
+                    </span>
+                  </div>
+                </div>
+
+                {{ form_errors(registrationDevForm.plainPassword) }}
+              </div>
+            </div>
           </div>
+          <div class="form-check mb-3">
+            {{ form_widget(registrationDevForm.agreeTerms, {'attr': {'class': 'form-check-input'
+
+
+            }}) }}
+            {{ form_label(registrationDevForm.agreeTerms, null, {'attr': {'class': 'form-check-label'
+
+
+            }}) }}
+            {{ form_errors(registrationDevForm.agreeTerms) }}
+          </div>
+          <div class="row">
+            <div class="col">
+              <a
+                href="{{ path('app_home') }}"
+                class="btn btn-outline-primary w-100"
+                >Back to home</a
+              >
+            </div>
+            <div class="col">
+              <button type="submit" class="btn btn-primary w-100">
+                Register
+              </button>
+            </div>
+          </div>
+
+          {{ form_end(registrationDevForm) }}
         </div>
       </div>
-
-      <div class="form-check mb-3">
-        {{ form_widget(registrationDevForm.agreeTerms, {'attr': {'class': 'form-check-input'
-
-        }}) }}
-        {{ form_label(registrationDevForm.agreeTerms, null, {'attr': {'class': 'form-check-label'
-
-        }}) }}
-        {{ form_errors(registrationDevForm.agreeTerms) }}
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Register</button>
-
-      {{ form_end(registrationDevForm) }}
     </div>
-  </div>
-</div>
-
-<script src="{{ asset('public/js/jquery-3.7.1.js') }}"></script>
-<script>
-  $(document).ready(function () {
-    const passwordField = document.getElementById("passwordField");
-    const togglePassword = document.getElementById("togglePassword");
-
-    togglePassword.addEventListener("click", function () {
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-
-      // Toggle the eye / eye-slash icon
-      this.classList.toggle("bi-eye");
-      this.classList.toggle("bi-eye-slash");
-    });
-  });
-</script>
-
-{% endblock %}
+  </body>
+</html>
