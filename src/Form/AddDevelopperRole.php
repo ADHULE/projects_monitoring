@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class AddUserRoleType extends AbstractType
+class AddDevelopperRole extends AbstractType
 {
     private $formHelper;
 
@@ -37,7 +37,6 @@ class AddUserRoleType extends AbstractType
                     'Développeur junior' => 'ROLE_DEV_JUNIOR',
                     'Développeur intermédiaire' => 'ROLE_DE_MEDUIM',
                     'Développeur senior' => 'ROLE_DEV_SENIOR',
-                    'Customer' => 'ROLE_CUSTOMER',
                    
                 ],
                 'multiple' => true,

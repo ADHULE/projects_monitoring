@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Form;
-
 use App\Entity\Customer;
 use App\Entity\Queries;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,7 +20,7 @@ class QueriesType extends AbstractType
             ->add('objective')
             ->add('castomer', EntityType::class, [
                 'class' => Customer::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

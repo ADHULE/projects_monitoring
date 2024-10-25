@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Queries;
 use App\Form\QueriesType;
 use App\Repository\QueriesRepository;

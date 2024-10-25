@@ -1,43 +1,48 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Developper index{% endblock %}
-
+{% extends 'base.html.twig' %} {% block title %}Developper index{% endblock %}
 {% block body %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Developper Index</h1>
-    <div class="row">
-        {% for developper in developpers %}
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ developper.name }} {{ developper.lastname }}</h5>
-                        <p class="card-text">
-                            <strong>Email:</strong> {{ developper.email }}<br>
-                            <strong>Roles:</strong> {{ developper.roles ? developper.roles|json_encode : '' }}<br>
-                            <strong>Hire Date:</strong> {{ developper.Date ? developper.Date|date('Y-m-d') : '' }}<br>
-                            <strong>Skills:</strong> {{ developper.skills }}<br>
-                            <strong>Photo:</strong> 
-                            {% if developper.photo %}
-                                <img src="{{ asset('uploads/images/' ~ developper.photo) }}" class="img-fluid rounded" alt="Photo of {{ developper.name }}" style="width: 200px;">
-                            {% else %}
-                                No photo available
-                            {% endif %}
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{{ path('app_developper_edit', {'id': developper.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <h1 class="text-center mb-4">Developper</h1>
+  <div class="row">
+    {% for developper in developpers %}
+    <div class="col-md-6 col-lg-2">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ developper.name }} {{ developper.lastname }}
+          </h5>
+          <p class="card-text">
+            <strong>Email:</strong> {{ developper.email }}<br />
+            <strong>Roles:</strong>
+            {{ developper.roles ? developper.roles|json_encode : '' }}<br />
+            <strong>Hire Date:</strong>
+            {{ developper.Date ? developper.Date|date('Y-m-d') : '' }}<br />
+            <strong>Skills:</strong> {{ developper.skills }}<br />
+            {% if developper.photo %}
+            <img
+              src="{{ asset('uploads/images/' ~ developper.photo) }}"
+              class="img-fluid rounded"
+              alt="Photo of {{ developper.name }}"
+              style="width: 100px; height: 200px"
+            />
+            {% else %} No photo available {% endif %}
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a
+                href="{{ path('app_user_edit_role', { id: developper.id }) }}"
+                class="btn btn-secondary mt-3"
+                >Add Role</a
+              >
             </div>
-        {% else %}
-            <div class="col-12">
-                <div class="alert alert-warning" role="alert">
-                    No records found
-                </div>
-            </div>
-        {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
+    {% else %}
+    <div class="col-12">
+      <div class="alert alert-warning" role="alert">No records found</div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

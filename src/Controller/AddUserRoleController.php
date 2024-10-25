@@ -1,7 +1,11 @@
 <?php
 namespace App\Controller;
+
+use App\Entity\Customer;
+use App\Entity\Developper;
 use App\Entity\User;
-use App\Form\AddUserRoleType;
+use App\Form\AddCustomerRole;
+use App\Form\AddDevelopperRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,21 +17,35 @@ class AddUserRoleController extends AbstractController
     #[Route('/admin/{id}/edit/role', name: 'app_user_edit_role', methods: ['GET', 'POST'])]
     public function editRole(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AddUserRoleType::class, $user);
-        $form->handleRequest($request);
+         // Determine the user type and throw an exception if it's not valid
+         if (!$user instanceof Developper && !$user instanceof Customer) {
+            error_log('User ID: ' . $user->getId() . ' is not a Developper or Customer');
+            throw $this->createNotFoundException('L\'utilisateur n\'est pas un client ou un développeur');
+        }
 
+         // Create the appropriate form based on the user type
+         $formType = $user instanceof Developper ? AddDevelopperRole::class : AddCustomerRole::class;
+         $form = $this->createForm($formType, $user);
+         $form->handleRequest($request);
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer les rôles du formulaire
             $roles = $form->get('roles')->getData();
             $user->setRoles($roles);
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_profile', ['id' => $user->getId()]);
         }
 
-        return $this->render('add_user_role/index.html.twig', [
-            'users' => $user,
-            'form' => $form,
+        // Determine the Twig template based on the user type
+        $template = $user instanceof Developper ? 'add_user_role/addDevelopperRole.html.twig' : 'add_user_role/addCustomerRole.html.twig';
+
+        return $this->render($template, [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
+
+
+    
 }

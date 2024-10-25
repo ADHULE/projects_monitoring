@@ -4,10 +4,10 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Customer index</h1>
+    <h1 class="text-center mb-4">Customers</h1>
     <div class="row">
         {% for customer in customers %}
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-2">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">{{ customer.name }} {{ customer.lastname }}</h5>
@@ -20,7 +20,7 @@
                             <br>
                             <strong>Roles:</strong> {{ customer.roles ? customer.roles|json_encode : '' }}<br>
                              {% if customer.photo %}
-                                <img src="{{ asset('uploads/images/' ~ customer.photo) }}" class="img-fluid rounded" alt="Photo of {{ customer.name }}" style="width: 300px; margin-left: 40px;">
+                                <img src="{{ asset('uploads/images/' ~ customer.photo) }}" class="img-fluid rounded" alt="Photo of {{ customer.name }}" style="width: 100px; height: 200px;">
                             {% else %}
                                 No photo available
                             {% endif %}

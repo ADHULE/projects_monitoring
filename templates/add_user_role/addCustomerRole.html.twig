@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %} {% block body %}
+<div class="container mt-5 p-4" style="background-color: rgb(240, 255, 255); border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h2 class="text-center mb-4">Add Role</h2>
+    {{ form_start(form) }}
+    <div class="row g-3">
+        <div class="col-12">
+            {{ form_widget(form) }}
+        </div>
+       <div class="col-md-6 col-lg-3">
+            <a class="btn btn-outline-warning w-100" href="{{ path('app_customer_index') }}">Return</a>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <button class="btn btn-info w-100">{{ button_label|default('Update') }}</button>
+        </div>
+       
+    </div>
+    {{ form_end(form) }}
+</div>
+
+
+{% endblock %}

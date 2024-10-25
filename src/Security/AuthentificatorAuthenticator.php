@@ -4,8 +4,8 @@ namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
@@ -21,36 +21,56 @@ class AuthentificatorAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    private UrlGeneratorInterface $urlGenerator;
+    private RouterInterface $router;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, RouterInterface $router)
     {
+        $this->urlGenerator = $urlGenerator;
+        $this->router = $router;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->getPayload()->getString('email');
-
+        // Utilisation de get() au lieu de getPayload() pour récupérer les données
+        $email = $request->get('email');
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
         return new Passport(
             new UserBadge($email),
-            new PasswordCredentials($request->getPayload()->getString('password')),
+            new PasswordCredentials($request->get('password')),
             [
-                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
+                new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
                 new RememberMeBadge(),
             ]
         );
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        // Gestion de redirection selon le rôle de l'utilisateur
+        $roles = $token->getRoleNames();
+        if (in_array('ROLE_ADMIN', $roles, true) && in_array('ROLE_DEV_SENIOR', $roles, true)) {
+            return new RedirectResponse($this->router->generate('app_admini_home'));
+        }
+
+        if (in_array('ROLE_DEV_JUNIOR', $roles, true)) {
+            return new RedirectResponse($this->router->generate('app_queries_index'));
+        }
+        if (in_array('ROLE_DE_MEDUIM', $roles, true)) {
+            return new RedirectResponse($this->router->generate('app_queries_index'));
+        }
+        if (in_array('ROLE_DEV_SENIOR', $roles, true)) {
+            return new RedirectResponse($this->router->generate('app_queries_index'));
+        }
+         else {
+            // Redirection par défaut
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        }
     }
 
     protected function getLoginUrl(Request $request): string
