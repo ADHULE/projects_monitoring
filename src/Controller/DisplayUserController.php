@@ -9,7 +9,11 @@ use App\Form\DisplayCustomerProfilFormType;
 use App\Form\DisplayDevelopperProfilFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,5 +84,45 @@ class DisplayUserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/supprimer-compte', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(
+        EntityManagerInterface $entityManager,
+        Security $security,
+        Request $request,
+        LoggerInterface $logger
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $user = $security->getUser();
+    
+        // Vérifier si l'utilisateur est autorisé à supprimer son compte
+        if (!$user instanceof Developper && !$user instanceof Customer) {
+            throw new AccessDeniedException('Vous n\'êtes pas autorisé à effectuer cette action.');
+        }
+    
+        // Vérifier le token CSRF
+        if (!$this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            throw new InvalidArgumentException('Token CSRF invalide.');
+        }
+    
+        try {
+            // Supprimer l'utilisateur et ses dépendances (à adapter selon votre modèle)
+            $entityManager->remove($user);
+            // ... Supprimer les dépendances liées à l'utilisateur ...
+            $entityManager->flush();
+    
+            // Invalider la session et déconnecter l'utilisateur
+            $request->getSession()->invalidate();
+            $this->container->get('security.token_storage')->setToken(null);
+    
+            $this->addFlash('success', 'Votre compte a été supprimé.');
+        } catch (\Exception $e) {
+            // Gestion des erreurs
+            $this->addFlash('error', 'Une erreur est survenue lors de la suppression de votre compte.');
+            $logger->error('Erreur lors de la suppression du compte utilisateur : ' . $e->getMessage());
+        }
+    
+        return $this->redirectToRoute('app_home');
     }
 }

@@ -47,14 +47,5 @@ class CustomerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_customer_delete', methods: ['POST'])]
-    public function delete(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($customer);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
-    }
+ 
 }

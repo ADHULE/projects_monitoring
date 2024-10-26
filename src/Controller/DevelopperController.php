@@ -4,11 +4,14 @@ use App\Entity\Developper;
 use App\Form\DevelopperType;
 use App\Repository\DevelopperRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
 #[Route('/developper')]
 class DevelopperController extends AbstractController
 {
@@ -38,14 +41,5 @@ class DevelopperController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_developper_delete', methods: ['POST'])]
-    public function delete(Request $request, Developper $developper, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$developper->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($developper);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_developper_index', [], Response::HTTP_SEE_OTHER);
-    }
+   
 }
